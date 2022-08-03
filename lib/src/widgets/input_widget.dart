@@ -35,6 +35,9 @@ enum PhoneInputSelectorType { DROPDOWN, BOTTOM_SHEET, DIALOG }
 ///
 /// [countries] accepts list of string on Country isoCode, if specified filters
 /// available countries to match the [countries] specified.
+///
+/// [defaultCountryCode] accepts a alpha2 or alpha3 country code to be used as
+/// the default country by the picker if it is contained in [countries].
 class InternationalPhoneNumberInput extends StatefulWidget {
   final SelectorConfig selectorConfig;
 
@@ -85,6 +88,8 @@ class InternationalPhoneNumberInput extends StatefulWidget {
 
   final List<String>? countries;
 
+  final String? defaultCountryCode;
+
   InternationalPhoneNumberInput(
       {Key? key,
       this.selectorConfig = const SelectorConfig(),
@@ -122,7 +127,8 @@ class InternationalPhoneNumberInput extends StatefulWidget {
       this.focusNode,
       this.cursorColor,
       this.autofillHints,
-      this.countries})
+      this.countries,
+      this.defaultCountryCode})
       : super(key: key);
 
   @override
@@ -201,6 +207,7 @@ class _InputWidgetState extends State<InternationalPhoneNumberInput> {
           Utils.getInitialSelectedCountry(
             countries,
             widget.initialValue?.isoCode ?? '',
+            widget.defaultCountryCode,
           );
 
       // Remove potential duplicates
